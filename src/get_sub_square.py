@@ -43,3 +43,20 @@ You can assume the matrix will always be square and will always have dimensions 
 If y_start_index or x_start_index is too high and a complete 3 * 3 subsquare cannot be extracted, 
 the function should return a matrix with None in the overflowed positions.
 '''
+
+def get_sub_square(matrix, xsi, ysi):
+    #Additional error handling
+    if len(matrix) < 3 or len(matrix[0]) < 3:
+        raise ValueError('Matrix must be at least 3x3')
+    if len(matrix) < ysi + 1 or len(matrix[0]) < xsi + 1:
+        raise ValueError('X and Y start points must be within the matrix')
+
+    mini_matrix = [[None,None,None],[None,None,None],[None,None,None]]
+    for i in range(3):
+        for j in range(3):
+            try:
+                mini_matrix[j][i] = matrix[ysi+j][xsi+i]
+            except IndexError:
+                pass
+    return mini_matrix
+
