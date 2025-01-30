@@ -79,3 +79,86 @@ game.get_board()
 # ]
 
 game.check_winner() # "x"'''
+
+
+class ConnectFourGame():
+    def __init__(self):
+        self.turn = 0
+        self.board = [
+    [None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None]
+]
+        self.player = 'x'
+
+    def change_player(self):
+        self.turn += 1
+        if self.turn % 2 == 0:
+            self.player = 'x'
+        if self.turn % 2 == 1:
+            self.player = 'o'
+
+    def play(self,col):
+        play_success = False
+        if 0 <= col <= 6 and type(col) == int:
+            for row in range(5,-1,-1):
+                if not self.board[row][col]:
+                    self.board[row][col] = self.player
+                    self.change_player()
+                    play_success = True
+                    break
+        if not play_success:
+            raise Exception('Invalid column choice, please go again')
+    
+    def get_board(self):
+        return self.board
+        
+    def check_winner(self):
+        winner = False
+        #check for horizontal victory
+        for row in self.board:
+            count = 1
+            for i in range(1, len(row)):
+                if row[i] == row[i - 1] and row[i]:
+                    count += 1
+                    if count == 4:
+                        winning_player = row[i]
+                        winner = True
+                else:
+                    count = 1
+        #check for vertical victory
+        for i in range(7):
+            count = 1
+            for j in range(1,6):
+                if self.board[j][i] == self.board[j-1][i] and self.board[j][i]:
+                    count += 1
+                    if count == 4:
+                        winning_player = self.board[j][i]
+                        winner = True
+                else:
+                    count = 1
+
+        #check for diagonal victory
+        for i in range(4):
+            for j in range(5,2,-1):
+                if self.board[j][i] == self.board[j-1][i+1] == self.board[j-2][i+2] == self.board[j-3][i+3] and self.board[j][i]:
+                    winning_player = self.board[j][i]
+                    winner = True
+
+        for i in range(4):
+            for j in range(2,-1,-1):
+                if self.board[j][i] == self.board[j+1][i+1] == self.board[j+2][i+2] == self.board[j+3][i+3] and self.board[j][i]:
+                    winning_player = self.board[j][i]
+                    winner = True
+
+        if winner:
+            return winning_player
+        else:
+            return 'No winner yet'
+                
+
+
+        
