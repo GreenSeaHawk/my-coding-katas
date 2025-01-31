@@ -1,4 +1,4 @@
-
+from pprint import pprint
 '''
 CHALLENGE
 
@@ -92,14 +92,15 @@ class ConnectFourGame():
     [None, None, None, None, None, None, None],
     [None, None, None, None, None, None, None]
 ]
-        self.player = 'x'
+        self.player = 'x '
+        self.winner = False
 
     def change_player(self):
         self.turn += 1
         if self.turn % 2 == 0:
-            self.player = 'x'
+            self.player = 'x '
         if self.turn % 2 == 1:
-            self.player = 'o'
+            self.player = 'o '
 
     def play(self,col):
         play_success = False
@@ -155,10 +156,52 @@ class ConnectFourGame():
                     winner = True
 
         if winner:
+            self.winner = True
             return winning_player
         else:
             return 'No winner yet'
                 
+"""GAME SCRIPT"""
+game = ConnectFourGame()
+print('Are you ready to play Connect Four?')
+print('The board is currently empty and looks like this:')
+pprint(game.get_board())
+player1_name = input('Player 1, what is your name? ')
+print(f'Thanks {player1_name}, you are playing with the x pieces')
+player2_name = input('Player 2, what is your name? ')
+print(f'Thanks {player2_name}, you are playing with the o pieces')
+while not game.winner:
+    if game.turn < 42:
+        while True:
+            try:
+                p1_choice = input(f'{player1_name} please choose a coloumn to place your piece (1-7) ')
+                game.play(int(p1_choice) - 1)
+                pprint(game.get_board())
+                game.check_winner()
+                break
+            except:
+                print('Choose a number between 1 and 7')
+        if game.winner:
+            break
+        while True:  
+            try:  
+                p2_choice = input(f'{player2_name} please choose a coloumn to place your piece (1-7) ')
+                game.play(int(p2_choice) - 1)
+                pprint(game.get_board())
+                game.check_winner()
+                break
+            except:
+                print('Choose a number between 1 and 7')
+    else:
+        print("It's a draw!")
+        break
+            
+if game.check_winner() == 'x ':
+    print(f"There's been a winner! Congratulations {player1_name}!")
+    print(f"Try harder next time {player2_name}, you suck!")
+if game.check_winner() == 'o ':
+    print(f"There's been a winner! Congratulations {player2_name}!")
+    print(f"Try harder next time {player1_name}, you suck!") 
 
 
-        
+
