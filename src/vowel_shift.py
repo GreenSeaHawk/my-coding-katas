@@ -22,3 +22,6 @@ vowel_shift('star nosed mole', 2)
 vowel_shift('funnily enough', 4)
 # --> 'finnely onuugh'
 '''
+
+def vowel_shift():
+    pass

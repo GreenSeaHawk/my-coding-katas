@@ -165,6 +165,7 @@ class ConnectFourGame():
 game = ConnectFourGame()
 print('Are you ready to play Connect Four?')
 print('The board is currently empty and looks like this:')
+print('[[ 1  ,  2  ,  3  ,  4  ,  5  ,  6  ,  7  ]]')
 pprint(game.get_board())
 player1_name = input('Player 1, what is your name? ')
 print(f'Thanks {player1_name}, you are playing with the x pieces')
@@ -176,6 +177,7 @@ while not game.winner:
             try:
                 p1_choice = input(f'{player1_name} please choose a coloumn to place your piece (1-7) ')
                 game.play(int(p1_choice) - 1)
+                print('[[ 1  ,  2  ,  3  ,  4  ,  5  ,  6  ,  7  ]]')
                 pprint(game.get_board())
                 game.check_winner()
                 break
@@ -187,6 +189,7 @@ while not game.winner:
             try:  
                 p2_choice = input(f'{player2_name} please choose a coloumn to place your piece (1-7) ')
                 game.play(int(p2_choice) - 1)
+                print('[[ 1  ,  2  ,  3  ,  4  ,  5  ,  6  ,  7  ]]')
                 pprint(game.get_board())
                 game.check_winner()
                 break
